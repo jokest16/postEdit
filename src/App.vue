@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <div class="wrapper">
+        <div class="wrapper" :class="{'-full': !getPosts.length}">
             <editor></editor>
             <posts></posts>
         </div>
@@ -10,6 +10,7 @@
 <script>
 import Editor from './components/Editor'
 import Posts from './components/Posts'
+import {mapGetters} from 'vuex'
 
 export default {
     name: 'app',
@@ -17,6 +18,11 @@ export default {
         Editor,
         Posts
     },
+    computed: {
+        ...mapGetters([
+            'getPosts',
+        ])
+    }
 }
 </script>
 
@@ -28,7 +34,6 @@ $wrapper__background-color: #e1e1e1;
         font-family: 'Avenir', Helvetica, Arial, sans-serif;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        text-align: center;
         color: #2c3e50;
         background-color: $wrapper__background-color;
         position: absolute;
@@ -38,11 +43,15 @@ $wrapper__background-color: #e1e1e1;
         right: 0;
         padding: 0 10px;
     }
+
     & > .wrapper {
         max-width: 1025px;
-        height: 100%;
         margin: 0 auto;
         background-color: #fff;
+        padding-bottom: 30px;
+    }
+    & > .wrapper.-full {
+        height: 100%;
     }
 }
 
